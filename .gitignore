@@ -1,3 +1,6 @@
 node_modules
 models/test.js
 test.txt
+dev/test.js
+dev/test.txt
+dev/test.json
