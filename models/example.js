@@ -6,9 +6,9 @@ module.exports = {
   "license": "Apache-2.0",   //NOT REQUIRED
   "parameter_size": "3B",    //NOT REQUIRED
   "chat": async function(Chat, Lastmsg, Messages, options) {
-    Chat("Selam ")
+    Chat("TEST ")
     await setTimeout(1000); // Simulate processing delay
-    Chat("Nasılsın?"); // Respond to the user
+    Chat("123!"); // Respond to the user
     console.log(Lastmsg)
   }
 }
