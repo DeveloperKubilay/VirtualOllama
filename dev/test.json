@@ -6,14 +6,22 @@
     },
     {
       "role": "user",
-      "content": "<environment_info>\nThe user's current OS is: Windows\nThe user's default shell is: \"cmd.exe\". When you generate terminal commands, please generate them correctly for this shell.\n</environment_info>\n<workspace_info>\nI am working in a workspace with the following folders:\n- c:\\Users\\kubil\\OneDrive\\Masaüstü\\ollanarest \nI am working in a workspace that has the following structure:\n```\npackage.json\nserver.js\ndev/\n\tqwen.js\n\ttest.json\nmodels/\n\tqwen.js\n```\nThis is the state of the context at this point in the conversation. The view of the workspace structure may be truncated. You can use tools to collect more context if needed.\n</workspace_info>"
+      "content": "<environment_info>\nThe user's current OS is: Windows\nThe user's default shell is: \"cmd.exe\". When you generate terminal commands, please generate them correctly for this shell.\n</environment_info>\n<workspace_info>\nI am working in a workspace with the following folders:\n- c:\\Users\\kubil\\OneDrive\\Masaüstü\\ollanarest \nI am working in a workspace that has the following structure:\n```\n1.json\noutput.json\npackage.json\nserver.js\ntest.js\nmodels/\n\tqwen.js\n```\nThis is the state of the context at this point in the conversation. The view of the workspace structure may be truncated. You can use tools to collect more context if needed.\n</workspace_info>"
     },
     {
       "role": "user",
-      "content": "<context>\nThe current date is 7 Ağustos 2025.\nNo active tasks or terminals found.\n</context>\n<editorContext>\nThe user's current file is c:\\Users\\kubil\\OneDrive\\Masaüstü\\ollanarest\\server.js. \n</editorContext>\n<repoContext>\nBelow is the information about the current repository. You can use this information when you need to calculate diffs or compare changes with the default branch.\nRepository name: VirtualOllama\nOwner: DeveloperKubilay\nCurrent branch: main\n\n</repoContext>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\n\n</reminderInstructions>\n<userRequest>\nselam\n</userRequest>"
+      "content": "<context>\nThe current date is 7 Ağustos 2025.\nNo active tasks or terminals found.\n</context>\n<editorContext>\nThe user's current file is c:\\Users\\kubil\\OneDrive\\Masaüstü\\ollanarest\\models\\qwen.js. \n</editorContext>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\n\n</reminderInstructions>\n<userRequest>\nselam\n</userRequest>"
+    },
+    {
+      "role": "user",
+      "content": "<context>\nThe current date is 7 Ağustos 2025.\nNo active tasks or terminals found.\n</context>\n<editorContext>\nThe user's current file is c:\\Users\\kubil\\OneDrive\\Masaüstü\\ollanarest\\models\\qwen.js. \n</editorContext>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\n\n</reminderInstructions>\n<userRequest>\nselam\n</userRequest>"
+    },
+    {
+      "role": "user",
+      "content": "<context>\nThe current date is 7 Ağustos 2025.\nNo active tasks or terminals found.\n</context>\n<editorContext>\nThe user's current file is c:\\Users\\kubil\\OneDrive\\Masaüstü\\ollanarest\\models\\qwen.js. \n</editorContext>\n<reminderInstructions>\nWhen using the insert_edit_into_file tool, avoid repeating existing code, instead use a line comment with \\`...existing code...\\` to represent regions of unchanged code.\n\n</reminderInstructions>\n<userRequest>\nselam\n</userRequest>"
     }
   ],
-  "model": "AndroidProMax",
+  "model": "qwen2.5-coder:0.5b",
   "temperature": 0.1,
   "top_p": 1,
   "tools": [
