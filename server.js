@@ -47,7 +47,7 @@ fs.readdirSync('./models').forEach(file => {
             "general.license": "other",
             "general.license.link": model.license,
             "general.license.name": model.license,
-            "general.parameter_count": Number(model.parameter_size.toLowerCase().split('b')[0])* 1000000000,
+            "general.parameter_count": Number(model.parameter_size.toLowerCase().split('b')[0]) * 1000000000,
             "general.quantization_version": 2,
             "general.size_label": model.parameter_size.toUpperCase(),
             "general.tags": null,
@@ -90,62 +90,44 @@ app.post("/v1/chat/completions", async (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
-    fs.writeFileSync("test.json", JSON.stringify(req.body, null, 2));    
-    console.log(req.model)
+    const modelName = req.body.model;
+    const model = models.find(m => m.modelData.name === modelName);
+    if (!model) return res.status(404).json({ error: 'Model bulunamadı' });
 
     const baseChunk = {
-        id: "chatcmpl-564",
+        id: "chatcmpl-" + Math.floor(Math.random() * 1000000),
         object: "chat.completion.chunk",
         created: Math.floor(Date.now() / 1000),
-        model: "qwen2.5-coder:0.5b",
+        model: model.name,
         system_fingerprint: "fp_ollama"
     };
 
-
-    function sendChunk(fullText, cb) {
-        const words = fullText.match(/\S+|\s+/g); // kelimeleri ve boşlukları koru
-        let i = 0;
-
-        function sendNext() {
-            if (i >= words.length) {
-                if (cb) cb(); // cümle bittiğinde callback çağrılır
-                return;
-            }
-            const chunk = {
-                ...baseChunk,
-                choices: [{
-                    index: 0,
-                    delta: { role: "assistant", content: words[i] },
-                    finish_reason: null
-                }]
-            };
-            res.write(`data: ${JSON.stringify(chunk)}\n\n`);
-            i++;
-            setTimeout(sendNext, 150); // hız ayarı burada, 150ms
-        }
-        sendNext();
+    async function Chat(Message) {
+        chunk = {
+            ...baseChunk,
+            choices: [{
+                index: 0,
+                delta: { role: "assistant", content: Message },
+                finish_reason: null
+            }]
+        };
+        res.write(`data: ${JSON.stringify(chunk)}\n\n`);
     }
 
-    // Fonksiyonları zincirleyerek çağırıyoruz ki sırasıyla gelsinler
-    sendChunk("Merhaba ben Kub ", () => {
-        sendChunk("Nasıl yardımcı olabilirim", () => {
-            sendChunk("?", () => {
-                // Bittiğinde final chunk ve DONE
-                const doneChunk = {
-                    ...baseChunk,
-                    choices: [{
-                        index: 0,
-                        delta: { role: "assistant", content: "" },
-                        finish_reason: "stop"
-                    }]
-                };
-                res.write(`data: ${JSON.stringify(doneChunk)}\n\n`);
-                res.write(`data: [DONE]\n\n`);
-                res.end();
-            });
-        });
-    });
+    const lastMessage = req.body.messages[req.body.messages.length - 1]?.content || "";
+    await model.chat(Chat, lastMessage, req.body.messages, req.body);
 
+    const doneChunk = {
+        ...baseChunk,
+        choices: [{
+            index: 0,
+            delta: { role: "assistant", content: "" },
+            finish_reason: "stop"
+        }]
+    };
+    res.write(`data: ${JSON.stringify(doneChunk)}\n\n`);
+    res.write(`data: [DONE]\n\n`);
+    res.end();
 });
 
 
