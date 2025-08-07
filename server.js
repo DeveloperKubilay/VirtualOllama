@@ -133,7 +133,7 @@ app.post("/v1/chat/completions", async (req, res) => {
 
 
 app.get('/', (req, res) => {
-    res.send('Developed by Kubilay');
+    res.send('Developed by Kubilay\nhttps://github.com/DeveloperKubilay/VirtualOllama');
 });
 
 app.listen(PORT, () => {
