@@ -1,0 +1,47 @@
+[
+    {
+        "id": "chatcmpl-572",
+        "object": "chat.completion.chunk",
+        "created": 1756050515,
+        "model": "qwen2.5-coder:7b",
+        "system_fingerprint": "fp_ollama",
+        "choices": [
+            {
+                "index": 0,
+                "delta": {
+                    "role": "assistant",
+                    "content": "",
+                    "tool_calls": [
+                        {
+                            "id": "call_irbibwsp",
+                            "index": 0,
+                            "type": "function",
+                            "function": {
+                                "name": "create_and_run_task",
+                                "arguments": "{\"task\":{\"command\":\"echo 'console.log(\\\"Merhaba Dünya\\\");' \\u003e test.js\",\"label\":\"Create Test File\",\"type\":\"shell\"},\"workspaceFolder\":\"c:\\\\Users\\\\kubil\\\\Desktop\\\\VirtualOllama\"}"
+                            }
+                        }
+                    ]
+                },
+                "finish_reason": null
+            }
+        ]
+    },
+    {
+        "id": "chatcmpl-457",
+        "object": "chat.completion.chunk",
+        "created": 1756051035,
+        "model": "qwen2.5-coder:0.5b",
+        "system_fingerprint": "fp_ollama",
+        "choices": [
+            {
+                "index": 0,
+                "delta": {
+                    "role": "assistant",
+                    "content": "```json\n{\n  \"name\": \"insert_edit_into_file\",\n  \"arguments\": {\n    \"file_path\": \"c:\\\\Users\\\\kubil\\Desktop\\\\VirtualOllama\\\\server.js\",\n    \"line_number\": 24,\n    \"content\": \"let result = 1 + 1;\\nconsole.log(result);\"\n  }\n}\n```"
+                },
+                "finish_reason": "stop"
+            }
+        ]
+    }
+]

@@ -4,7 +4,9 @@
   "description": "Ollama REST API simülasyonu",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "debugTrue": "set DEBUG=true",
+    "debugFalse": "set DEBUG=false"
   },
   "keywords": [
     "ollama",
