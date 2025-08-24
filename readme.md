@@ -1,6 +1,3 @@
-
-## Add any artificial intelligence you want, just like ollama
-
 <p align="center">
 	<img src="https://raw.githubusercontent.com/DeveloperKubilay/VirtualOllama/refs/heads/main/dev/image.png" alt="VirtualOllama logo" width="300"/>
 </p>
