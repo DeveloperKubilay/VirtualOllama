@@ -79,7 +79,6 @@ app.get('/api/version', (req, res) => {
 
 app.get('/api/tags', (req, res) => {
     const ListModels = models.map(model => model.modelData);
-    console.log(ListModels);
     res.json({ models: ListModels });
 });
 
@@ -90,10 +89,13 @@ app.post("/api/show", (req, res) => {
     res.json(model.modelInfo);
 });
 
+
 app.post("/v1/chat/completions", async (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
+
+    //fs.writeFileSync('./dev/last_request.json', JSON.stringify(req.body, null, 2));
 
     const modelName = req.body.model;
     const model = models.find(m => m.modelData.name === modelName);
@@ -107,18 +109,33 @@ app.post("/v1/chat/completions", async (req, res) => {
         system_fingerprint: "fp_ollama"
     };
 
-    async function Chat(Message) {
+    async function Chat(Message, Tools) {
+        if (typeof Tools === "object") Tools = [Tools];
         chunk = {
             ...baseChunk,
             choices: [{
                 index: 0,
-                delta: { role: "assistant", content: Message },
+                delta: {
+                    role: "assistant",
+                    content: Message,
+                    tool_calls: Tools?.map((x, c) => {
+                        return {
+                            "id": "call_" + Math.floor(Math.random() * 1000000),
+                            "index": c,
+                            "type": x.OLLAMA_MODEL_DATATYPE || "function",
+                            "function": {
+                                "name": x.name,
+                                "arguments": JSON.stringify(x || {})
+                            }
+                        }
+                    }),
+                },
                 finish_reason: null
             }]
         };
+        //fs.writeFileSync('./dev/last_message3.json', JSON.stringify(chunk, null, 2));
         res.write(`data: ${JSON.stringify(chunk)}\n\n`);
     }
-
     const lastMessage = req.body.messages[req.body.messages.length - 1]?.content || "";
     await model.chat(Chat, lastMessage, req.body.messages, req.body);
 
@@ -127,15 +144,13 @@ app.post("/v1/chat/completions", async (req, res) => {
         choices: [{
             index: 0,
             delta: { role: "assistant", content: "" },
-            finish_reason: "stop"
+            finish_reason: "tool_calls"
         }]
     };
     res.write(`data: ${JSON.stringify(doneChunk)}\n\n`);
     res.write(`data: [DONE]\n\n`);
     res.end();
 });
-
-
 
 app.get('/', (req, res) => {
     res.send('Developed by Kubilay\nhttps://github.com/DeveloperKubilay/VirtualOllama');
