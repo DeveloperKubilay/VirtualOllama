@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://raw.githubusercontent.com/DeveloperKubilay/VirtualOllama/refs/heads/main/dev/image.png" alt="VirtualOllama logo" width="300"/>
+	<img src="https://raw.githubusercontent.com/DeveloperKubilay/VirtualOllama/refs/heads/main/dev/image.png" alt="VirtualOllama logo" />
 </p>
 
 # VirtualOllama 🦙💻
