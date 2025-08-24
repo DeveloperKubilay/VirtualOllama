@@ -48,11 +48,3 @@ module.exports = {
 	}
 }
 ```
-
-## Credits & Source
-- Built by [Kubilay](https://github.com/DeveloperKubilay/VirtualOllama)
-- Inspired by Ollama, but 100% open source
-- All code: [`server.js`](./server.js), [`models/example.js`](./models/example.js), [`package.json`](./package.json)
-
-## License
-MIT. Do what you want, just don’t be evil. 
