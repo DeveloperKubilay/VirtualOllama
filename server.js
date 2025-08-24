@@ -73,8 +73,13 @@ fs.readdirSync('./models').forEach(file => {
 });
 
 
+app.get('/api/version', (req, res) => {
+    res.json({ version: "0.6.8" });
+});
+
 app.get('/api/tags', (req, res) => {
     const ListModels = models.map(model => model.modelData);
+    console.log(ListModels);
     res.json({ models: ListModels });
 });
 
