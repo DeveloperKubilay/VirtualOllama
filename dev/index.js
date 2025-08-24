@@ -1,7 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 
-const body = fs.readFileSync('./last_message.json');
+const body = fs.readFileSync('./last_request.json');
 
 const req = http.request(
   {

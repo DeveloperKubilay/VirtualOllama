@@ -1,9 +1,9 @@
 [
     {
-        "id": "chatcmpl-572",
+        "id": "chatcmpl-299",
         "object": "chat.completion.chunk",
-        "created": 1756050515,
-        "model": "qwen2.5-coder:7b",
+        "created": 1756068531,
+        "model": "qwen2.5-coder:0.5b",
         "system_fingerprint": "fp_ollama",
         "choices": [
             {
@@ -13,12 +13,12 @@
                     "content": "",
                     "tool_calls": [
                         {
-                            "id": "call_irbibwsp",
+                            "id": "call_fam89ryn",
                             "index": 0,
                             "type": "function",
                             "function": {
-                                "name": "create_and_run_task",
-                                "arguments": "{\"task\":{\"command\":\"echo 'console.log(\\\"Merhaba Dünya\\\");' \\u003e test.js\",\"label\":\"Create Test File\",\"type\":\"shell\"},\"workspaceFolder\":\"c:\\\\Users\\\\kubil\\\\Desktop\\\\VirtualOllama\"}"
+                                "name": "insert_edit_into_file",
+                                "arguments": "{\"command\":\"echo 'console.log(\\\"Merhaba Dünya\\\");'\",\"explanation\":\"A one-sentence description of what the command does. This will be shown to the user before the command is run.\",\"isBackground\":false}"
                             }
                         }
                     ]
@@ -28,9 +28,9 @@
         ]
     },
     {
-        "id": "chatcmpl-457",
+        "id": "chatcmpl-299",
         "object": "chat.completion.chunk",
-        "created": 1756051035,
+        "created": 1756068531,
         "model": "qwen2.5-coder:0.5b",
         "system_fingerprint": "fp_ollama",
         "choices": [
@@ -38,10 +38,23 @@
                 "index": 0,
                 "delta": {
                     "role": "assistant",
-                    "content": "```json\n{\n  \"name\": \"insert_edit_into_file\",\n  \"arguments\": {\n    \"file_path\": \"c:\\\\Users\\\\kubil\\Desktop\\\\VirtualOllama\\\\server.js\",\n    \"line_number\": 24,\n    \"content\": \"let result = 1 + 1;\\nconsole.log(result);\"\n  }\n}\n```"
+                    "content": ""
                 },
-                "finish_reason": "stop"
+                "finish_reason": "tool_calls"
             }
         ]
+    },
+    {
+        "id": "chatcmpl-299",
+        "object": "chat.completion.chunk",
+        "created": 1756068531,
+        "model": "qwen2.5-coder:0.5b",
+        "system_fingerprint": "fp_ollama",
+        "choices": [],
+        "usage": {
+            "prompt_tokens": 4096,
+            "completion_tokens": 78,
+            "total_tokens": 4174
+        }
     }
 ]
