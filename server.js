@@ -111,7 +111,7 @@ app.post("/v1/chat/completions", async (req, res) => {
 
     async function Chat(Message, Tools) {
         if (typeof Tools === "object") Tools = [Tools];
-        chunk = {
+        const chunk = {
             ...baseChunk,
             choices: [{
                 index: 0,
@@ -137,7 +137,8 @@ app.post("/v1/chat/completions", async (req, res) => {
         res.write(`data: ${JSON.stringify(chunk)}\n\n`);
     }
     const lastMessage = req.body.messages[req.body.messages.length - 1]?.content || "";
-    await model.chat(Chat, lastMessage, req.body.messages, req.body);
+    const write = res.write.bind(res);
+    await model.chat(Chat, lastMessage, req.body.messages, req.body, write, res);
 
     const doneChunk = {
         ...baseChunk,
