@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
+
 const PORT = process.env.PORT || 11434;
+const basePath = process.env.BASEPATH ||'/';
 
 app.use(cors());
 app.use(express.json());
@@ -72,30 +74,28 @@ fs.readdirSync('./models').forEach(file => {
     models.push(model);
 });
 
+const router = express.Router();
 
-app.get('/api/version', (req, res) => {
+router.get('/api/version', (req, res) => {
     res.json({ version: "0.6.8" });
 });
 
-app.get('/api/tags', (req, res) => {
+router.get('/api/tags', (req, res) => {
     const ListModels = models.map(model => model.modelData);
     res.json({ models: ListModels });
 });
 
-app.post("/api/show", (req, res) => {
+router.post("/api/show", (req, res) => {
     const modelName = req.body.model;
     const model = models.find(m => m.modelData.name === modelName);
     if (!model) return res.status(404).json({ error: 'Model bulunamadı' });
     res.json(model.modelInfo);
 });
 
-
-app.post("/v1/chat/completions", async (req, res) => {
+router.post("/v1/chat/completions", async (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
-
-    //fs.writeFileSync('./dev/last_request.json', JSON.stringify(req.body, null, 2));
 
     const modelName = req.body.model;
     const model = models.find(m => m.modelData.name === modelName);
@@ -133,7 +133,6 @@ app.post("/v1/chat/completions", async (req, res) => {
                 finish_reason: null
             }]
         };
-        //fs.writeFileSync('./dev/last_message3.json', JSON.stringify(chunk, null, 2));
         res.write(`data: ${JSON.stringify(chunk)}\n\n`);
     }
     const lastMessage = req.body.messages[req.body.messages.length - 1]?.content || "";
@@ -153,9 +152,11 @@ app.post("/v1/chat/completions", async (req, res) => {
     res.end();
 });
 
-app.get('/', (req, res) => {
-    res.send('Developed by Kubilay\nhttps://github.com/DeveloperKubilay/VirtualOllama');
+router.get('/', (req, res) => {
+    res.send('Developed by Kubilay<br>https://github.com/DeveloperKubilay/VirtualOllama');
 });
+
+app.use(basePath, router);
 
 app.listen(PORT, () => {
     console.log(`Sunucu ${PORT} portunda çalışıyor.`);
